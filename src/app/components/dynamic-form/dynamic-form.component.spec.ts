@@ -57,8 +57,8 @@ describe('DynamicFormComponent', () => {
 
     component.ngOnInit();
 
-    debugger;
-    
+    // debugger;
+
     expect(Object.keys(component.formGroup.controls)).toEqual([
       'first', 'second'
     ]);
