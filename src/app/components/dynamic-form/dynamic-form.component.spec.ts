@@ -59,7 +59,7 @@ describe('DynamicFormComponent', () => {
 
   it('should set the `payload` to a stringified version of our form values', () => {
     component.questions = [
-      {
+        {
         controlType: 'text',
         id: 'first',
         label: 'My First',

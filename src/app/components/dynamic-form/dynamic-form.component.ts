@@ -11,7 +11,7 @@ export class DynamicFormComponent implements OnInit {
 
   date : string;
 
-  @Input() questions : Array<Question> = [];
+  @Input() questions : Array<Question> ; //= []
 
   formGroup : FormGroup;
 
