@@ -8,19 +8,29 @@ import { FormControl, FormGroup } from "@angular/forms";
   styleUrls: ['./dynamic-question.component.css']
 })
 export class DynamicQuestionComponent implements OnInit {
+  date: string;
 
   @Input() form: FormGroup;
-  @Input() control: FormControl;
+  // @Input() control: FormControl;
   @Input() question: Question;
 
   constructor() { }
 
   ngOnInit() {
+    this.date = this.getDate();
   }
 
 
   get isValid(): boolean {
-    // return this.form.controls[this.question.id].valid;
-    return this.control.valid;
+    return this.form.controls[this.question.id].valid;
+    // return this.control.valid;
   }
+
+  private getDate() {
+    let d    = new Date();
+    let date = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    return date;
+  }
+
 }
+
