@@ -4,16 +4,18 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-dynamic-form',
-  templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./dynamic-form.component.css']
+  templateUrl: './dynamic-form.component.html'
+  // styleUrls: ['./dynamic-form.component.css']
 })
 export class DynamicFormComponent implements OnInit {
 
-  date: string;
+  date : string;
 
-  @Input() questions: Array<Question>;
+  @Input() questions : Array<Question> = [];
 
-  formGroup: FormGroup;
+  formGroup : FormGroup;
+
+  payload : string;
 
   constructor() {
   }
@@ -21,28 +23,38 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
     this.date = this.getDate();
 
-    this.formGroup = this.generateForm(this.questions || []);
+    // this.formGroup = this.generateForm(this.questions || []);
   }
 
-  private generateForm(questions: Array<Question>): FormGroup {
+  ngOnChanges() {
+    this.formGroup = this.generateForm(this.questions || []);
+    this.payload = '';
+  }
+
+  private generateForm(questions : Array<Question>) : FormGroup {
     const formControls = questions.reduce(this.generateControl, {})
 
     return new FormGroup(formControls);
   }
 
-  private generateControl(controls: any, question: Question) {
+  private generateControl(controls : any, question : Question) {
     if (question.required) {
-      controls[question.id] = new FormControl(question.value || '', Validators.required);
+      controls[ question.id ] = new FormControl(question.value || '', Validators.required);
     }
     else {
-      controls[question.id] = new FormControl(question.value || '');
+      controls[ question.id ] = new FormControl(question.value || '');
     }
 
     return controls;
   }
 
+  submit() {
+    this.payload = JSON.stringify(this.formGroup.value, null, 4);
+  }
+
+
   private getDate() {
-    let d    = new Date();
+    let d = new Date();
     let date = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
     return date;
   }

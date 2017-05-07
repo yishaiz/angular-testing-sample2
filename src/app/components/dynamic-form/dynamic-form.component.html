@@ -1,5 +1,13 @@
-<p>
-  dynamic-form works!
-</p>
+<form [formGroup]="formGroup" (ngSubmit)="submit()">
+  <div *ngFor="let question of questions" class="row">
+    <app-dynamic-question [form]="formGroup"
+                          [question]="question"></app-dynamic-question>
+  </div>
+
+  <div class="row">
+    <button type="submit" [disabled]="!formGroup.valid">Save</button>
+  </div>
+  <pre *ngIf="payload">{{ payload }}</pre>
+</form>
 
 <h3>{{date}}</h3>

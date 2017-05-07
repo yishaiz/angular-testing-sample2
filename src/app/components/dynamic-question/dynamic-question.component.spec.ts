@@ -4,37 +4,25 @@ import { DynamicQuestionComponent } from './dynamic-question.component';
 
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
-import { Question } from '../../models';
-describe('DynamicQuestionComponent', () => {
+ describe('DynamicQuestionComponent', () => {
   let component : DynamicQuestionComponent;
   let fixture : ComponentFixture<DynamicQuestionComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ DynamicQuestionComponent ],
       imports: [ ReactiveFormsModule ]
-    })
-      .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DynamicQuestionComponent);
+    const fixture = TestBed.createComponent(DynamicQuestionComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  /*
-   it('should return true if the form control is valid', () => {
-   const formControl = new FormControl('test');
-
-   component.control = formControl;
-   expect(component.isValid).toBe(true);
-   });
-   */
 
   it('should return true if the form control is valid', () => {
     const formControl = new FormControl('test');
@@ -47,5 +35,13 @@ describe('DynamicQuestionComponent', () => {
   });
 
 
+  it('should return true if the form control is valid', () => {
+    const formControl = new FormControl('test');
+    const formGroup = new FormGroup({ pizza: formControl })
+
+    component.question = { controlType: 'text', id: 'pizza', label: 'Pizza!', required: false };
+    component.form = formGroup;
+    expect(component.isValid).toBe(true);
+  });
 
 });
